@@ -10,6 +10,7 @@ export default function Pages() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/:id" element={<Home />} />
       <Route path="/table" element={<LocalTable />} />
       <Route path="/setting" element={<Setting />} />
       <Route path="/setting/:nom" element={<Setting />} />

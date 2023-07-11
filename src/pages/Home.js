@@ -1,25 +1,15 @@
 import { Button, TextField } from "@mui/material";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ContextData } from "../config/Context";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function Home() {
-  let { data, refreshData } = useContext(ContextData);
+  let { data, refreshData, inputData, setInputData, clearInputData } =
+    useContext(ContextData);
   let navLink = useNavigate();
-  const [inputData, setInputData] = useState({
-    name: "",
-    userName: "",
-    password: "",
-    email: "",
-  });
-  const clearInputData = () => {
-    setInputData({
-      name: "",
-      userName: "",
-      password: "",
-      email: "",
-    });
-  };
+
+  let paramID = useParams();
+  // console.log(paramID.id);
   const getIntputValue = (e) => {
     console.log(e.target.name);
     setInputData({
@@ -31,11 +21,30 @@ export default function Home() {
   const sendData = (e) => {
     e.preventDefault();
     // localStorage.setItem("data", JSON.stringify([inputData]));
-    localStorage.setItem("data", JSON.stringify([...data, inputData]));
+    if (inputData.id === "") {
+      localStorage.setItem(
+        "data",
+        JSON.stringify([...data, { ...inputData, id: Date.now() }])
+      );
+    } else {
+      // tahrirlash
+      localStorage.setItem(
+        "data",
+        JSON.stringify(
+          data.map((item) => (item.id === inputData.id ? inputData : item))
+        )
+      );
+    }
     clearInputData();
     refreshData();
     navLink("/table");
   };
+
+  useEffect(() => {
+    if (paramID.id) {
+      setInputData(data.filter((item) => item.id == paramID.id)[0]);
+    }
+  }, []);
 
   return (
     <form onSubmit={sendData}>
@@ -90,7 +99,7 @@ export default function Home() {
       </div>
       <div>
         <Button variant="contained" type="submit">
-          Send
+          {inputData.id === "" ? "Send" : "Edit"}
         </Button>
       </div>
     </form>
