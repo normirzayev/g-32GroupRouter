@@ -1,10 +1,17 @@
-import React, { createContext } from "react";
+import React, { createContext, useContext, useState } from "react";
 
 export const ContextData = createContext();
 
 export default function ContextProvider({ children }) {
-
-  let text = 'salom'
-
-  return <ContextData.Provider value={{text}} >{children}</ContextData.Provider>;
+  const [data, setData] = useState(
+    JSON.parse(localStorage.getItem("data")) || []
+  );
+  const refreshData = () => {
+    setData(JSON.parse(localStorage.getItem("data")) || []);
+  };
+  return (
+    <ContextData.Provider value={{ data, setData,refreshData }}>
+      {children}
+    </ContextData.Provider>
+  );
 }

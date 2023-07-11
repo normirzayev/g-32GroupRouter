@@ -8,7 +8,7 @@ export default function App() {
     <div className="app">
       <Navbar />
       <Pages />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
