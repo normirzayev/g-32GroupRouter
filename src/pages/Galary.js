@@ -1,10 +1,23 @@
-import React, { useContext } from "react";
-import { ContextData } from "../config/Context";
-
+import React, { useEffect, useRef } from "react";
 export default function Galary() {
-  let { text } = useContext(ContextData);
+  let inputRef = useRef();
+  // console.log(inputRef.current);
 
-  console.log(text);
+  function handleGetValue() {
+    console.log(inputRef.current.value);
+  }
+  
+  // useEffect(() => {
+  // });
 
-  return <div>Galary</div>;
+  return (
+    <>
+      <button onClick={handleGetValue}> click ref </button>
+      <input
+        type="text"
+        ref={inputRef}
+        // onChange={(e) => console.log(e.target.value)}
+      />
+    </>
+  );
 }

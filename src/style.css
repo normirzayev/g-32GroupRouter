@@ -75,3 +75,11 @@ form {
 .table {
   background-color: white;
 }
+.sliderBox {
+  background-color: red;
+  padding: 20px 50px;
+}
+.sliderItem {
+  padding: 20px ;
+  background-color: grey;
+}
