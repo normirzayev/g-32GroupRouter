@@ -19,6 +19,12 @@ export default function Navbar() {
         <li>
           <NavLink to="/galary">galary</NavLink>
         </li>
+        <li>
+          <NavLink to="/get_api">get api</NavLink>
+        </li>
+        <li>
+          <NavLink to="/form_add_php">form add php</NavLink>
+        </li>
       </ul>
     </nav>
   );

@@ -80,10 +80,38 @@ form {
   padding: 20px 50px;
 }
 .sliderItem {
-  padding: 20px ;
+  padding: 20px;
   background-color: grey;
 }
 
 .activeBtn {
   background-color: red;
+}
+
+.loading {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.498);
+  backdrop-filter: blur(10px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999999;
+  color: white;
+  font-size: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.loadingClose {
+  display: none;
+}
+
+.getApi table  {
+  margin: 0 auto;
+  background-color: white;
+  border-collapse: collapse;
+}
+.getApi table th,  .getApi table td {
+  padding: 10px;
 }

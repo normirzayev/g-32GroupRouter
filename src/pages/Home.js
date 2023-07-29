@@ -1,5 +1,5 @@
 import { Button, TextField } from "@mui/material";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { ContextData } from "../config/Context";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -42,7 +42,7 @@ export default function Home() {
 
   useEffect(() => {
     if (paramID.id) {
-      setInputData(data.filter((item) => item.id == paramID.id)[0]);
+      setInputData(data.filter((item) => item.id === paramID.id)[0]);
     }
   }, []);
 

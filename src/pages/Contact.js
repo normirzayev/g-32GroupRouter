@@ -76,7 +76,6 @@ export default function Contact() {
           );
         })}
       </div>
-
       <div style={{ color: "white" }}>
         <h2>{data[activeTab].name}</h2>
         <h3>{data[activeTab].price}</h3>

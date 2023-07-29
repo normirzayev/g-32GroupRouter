@@ -6,6 +6,8 @@ import { Route, Routes } from "react-router-dom";
 import Galary from "../pages/Galary";
 import NotFound from "./NotFound";
 import LocalTable from "../pages/Table";
+import GetApi from "../pages/GetApi";
+import FormAddPHP from "../pages/FormAddPHP";
 export default function Pages() {
   return (
     <Routes>
@@ -16,6 +18,8 @@ export default function Pages() {
       <Route path="/setting/:nom" element={<Setting />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/galary" element={<Galary />} />
+      <Route path="/get_api" element={<GetApi />} />
+      <Route path="/form_add_php" element={<FormAddPHP />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
