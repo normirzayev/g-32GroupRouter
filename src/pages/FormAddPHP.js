@@ -22,10 +22,9 @@ export default function FormAddPHP() {
       [e.target.name]: e.target.value,
     });
   };
-  const sendData = (e) => {
+  const sendData = async (e) => {
     setLoading(true);
     e.preventDefault();
-    // console.log(inputDataPhp);
     let formData = new FormData();
     formData.append("title_uz", inputDataPhp.title_uz);
     formData.append("title_ru", inputDataPhp.title_ru);
@@ -33,45 +32,45 @@ export default function FormAddPHP() {
     formData.append("body_uz", inputDataPhp.body_uz);
     formData.append("body_ru", inputDataPhp.body_ru);
     formData.append("body_en", inputDataPhp.body_en);
-    formData.append("photo", inputDataPhp.photo);
+    if (inputDataPhp?.photoLink?.length > 0) {
+      formData.append("photo", inputDataPhp.photo);
+    }
     if (setInputDataPhp.id === "") {
-      axios("http://test-api.nammqial.uz/public/api/news", {
-        method: "post",
-        data: formData,
-      })
-        .then((res) => {
-          console.log(res.data.data);
-          if (res.status === 200) {
-            setPhpData([...phpData, res.data.data]);
-            link("/get_api");
-            clearInputinputDataPhp();
-          }
-        })
-        .catch((err) => console.log(err))
-        .finally(() => {
-          setLoading(false);
-        });
+      let jsonData = await axios(
+        "http://test-api.nammqial.uz/public/api/news",
+        { method: "post", data: formData }
+      );
+      try {
+        if (jsonData.status === 200) {
+          setPhpData([...phpData, jsonData.data.data]);
+          link("/get_api");
+          clearInputinputDataPhp();
+        }
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setLoading(false);
+      }
     } else {
-      axios(`http://test-api.nammqial.uz/public/api/news/${inputDataPhp?.id}`, {
-        method: "post",
-        data: formData,
-      })
-        .then((res) => {
-          console.log(res.data.data);
-          if (res.status === 200) {
-            setPhpData(
-              phpData.map((item) =>
-                item.id === inputDataPhp.id ? res?.data?.data : item
-              )
-            );
-            link("/get_api");
-            clearInputinputDataPhp();
-          }
-        })
-        .catch((err) => console.log(err))
-        .finally(() => {
-          setLoading(false);
-        });
+      let jsonData = await axios(
+        `http://test-api.nammqial.uz/public/api/news/${inputDataPhp?.id}`,
+        { method: "post", data: formData }
+      );
+      try {
+        if (jsonData.status === 200) {
+          setPhpData(
+            phpData.map((item) =>
+              item.id === inputDataPhp.id ? jsonData?.data?.data : item
+            )
+          );
+          link("/get_api");
+          clearInputinputDataPhp();
+        }
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setLoading(false);
+      }
     }
   };
   return (
@@ -155,18 +154,15 @@ export default function FormAddPHP() {
                 setInputDataPhp({
                   ...inputDataPhp,
                   photo: e.target.files[0],
+                  photoLink: URL.createObjectURL(e.target.files[0]),
                 })
               }
             />
-            {/* <TextField
-            id="filled"
-            label="password"
-            variant="filled"
-            name="password"
-            fullWidth
-            onChange={getIntputValue}
-            value={inputDataPhp.password}
-          /> */}
+            {inputDataPhp.photoLink.length > 0 ? (
+              <img src={inputDataPhp?.photoLink} alt="" />
+            ) : (
+              ""
+            )}
           </div>
         </div>
         <div>

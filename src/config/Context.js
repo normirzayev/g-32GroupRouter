@@ -36,6 +36,7 @@ export default function ContextProvider({ children }) {
     body_ru: "",
     body_en: "",
     photo: "",
+    photoLink: "",
   });
   const clearInputinputDataPhp = () => {
     setInputDataPhp({
@@ -47,6 +48,7 @@ export default function ContextProvider({ children }) {
       body_ru: "",
       body_en: "",
       photo: "",
+      photoLink: "",
     });
   };
 

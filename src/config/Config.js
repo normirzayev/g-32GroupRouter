@@ -4,33 +4,27 @@ import axios from "axios";
 
 export default function Config() {
   const { setJsonData, setLoading, setPhpData } = useContext(ContextData);
-  const GetJson = () => {
+  const GetJson = async () => {
     setLoading(true);
-    axios("https://jsonplaceholder.typicode.com/todos", {
-      method: "GET",
-    })
-      .then((response) => {
-        setJsonData(response.data);
-        // console.log(response.data);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => {
-        setLoading(false);
-      });
+    try {
+      let res = await axios.get("https://jsonplaceholder.typicode.com/todos");
+      setJsonData(res.data);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
   };
-  const GetPhpApi = () => {
+  const GetPhpApi = async () => {
     setLoading(true);
-    axios("http://test-api.nammqial.uz/public/api/news", {
-      method: "GET",
-    })
-      .then((res) => {
-        // console.log(res.data.data);
-        setPhpData(res.data.data);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => {
-        setLoading(false);
-      });
+    try {
+      let res = await axios.get("http://test-api.nammqial.uz/public/api/news");
+      setPhpData(res.data.data);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
   };
   useEffect(() => {
     GetJson();

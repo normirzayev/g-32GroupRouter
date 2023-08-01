@@ -47,7 +47,10 @@ export default function GetApi() {
                   <td> {c?.body_ru} </td>
                   <td> {c?.body_en} </td>
                   <td>
-                    <img src={c?.photo} alt={c?.title_uz} />
+                    <img
+                      src={c?.photo?.replace("apiapi", "api")}
+                      alt={c?.title_uz}
+                    />
                   </td>
                   <td>
                     <Button
