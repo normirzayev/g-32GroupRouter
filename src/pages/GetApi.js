@@ -7,7 +7,7 @@ import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 export default function GetApi() {
-  const { loading, phpData, inputDataPhp, setInputDataPhp } =
+  const { loading, phpData, setPhpData, setInputDataPhp, setLoading } =
     useContext(ContextData);
 
   let link = useNavigate();
@@ -15,6 +15,23 @@ export default function GetApi() {
     // console.log(item);
     setInputDataPhp(item);
     link("/form_add_php");
+  };
+
+  const handleDelete = async (idSon) => {
+    setLoading(true);
+    let response = await axios(
+      `http://test-api.nammqial.uz/public/api/news/${idSon}`,
+      { method: "delete" }
+    );
+    try {
+      if (response.status === 200) {
+        setPhpData(phpData.filter((p) => p.id !== idSon));
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -62,7 +79,11 @@ export default function GetApi() {
                     </Button>
                   </td>
                   <td>
-                    <Button color="error" variant="contained">
+                    <Button
+                      color="error"
+                      variant="contained"
+                      onClick={() => handleDelete(c.id)}
+                    >
                       delete
                     </Button>
                   </td>

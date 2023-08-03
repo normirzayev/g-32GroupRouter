@@ -35,14 +35,14 @@ export default function FormAddPHP() {
     if (inputDataPhp?.photoLink?.length > 0) {
       formData.append("photo", inputDataPhp.photo);
     }
-    if (setInputDataPhp.id === "") {
+    if (setInputDataPhp?.id === "") {
       let jsonData = await axios(
-        "http://test-api.nammqial.uz/public/api/news",
+        "https://test-api.nammqial.uz/public/api/news",
         { method: "post", data: formData }
       );
       try {
         if (jsonData.status === 200) {
-          setPhpData([...phpData, jsonData.data.data]);
+          setPhpData([...phpData, jsonData?.data?.data]);
           link("/get_api");
           clearInputinputDataPhp();
         }
@@ -53,14 +53,14 @@ export default function FormAddPHP() {
       }
     } else {
       let jsonData = await axios(
-        `http://test-api.nammqial.uz/public/api/news/${inputDataPhp?.id}`,
+        `https://test-api.nammqial.uz/public/api/news/${inputDataPhp?.id}`,
         { method: "post", data: formData }
       );
       try {
         if (jsonData.status === 200) {
           setPhpData(
             phpData.map((item) =>
-              item.id === inputDataPhp.id ? jsonData?.data?.data : item
+              item?.id === inputDataPhp?.id ? jsonData?.data?.data : item
             )
           );
           link("/get_api");
@@ -158,7 +158,7 @@ export default function FormAddPHP() {
                 })
               }
             />
-            {inputDataPhp.photoLink.length > 0 ? (
+            {inputDataPhp?.photoLink?.length > 0 ? (
               <img src={inputDataPhp?.photoLink} alt="" />
             ) : (
               ""
